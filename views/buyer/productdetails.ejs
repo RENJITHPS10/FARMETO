@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light gray background color */
+            font-family: Arial, sans-serif; /* Use a common sans-serif font */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff; /* White background color */
+        }
+        .product-image {
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        .product-details {
+            background-color: #1B6E75; 
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadein 1s, slideup 1s; /* Add slideup animation */
+        }
+        .product-details p a {
+            color: white; /* Set the color to white */
+        }
+        @keyframes slideup {
+            from { transform: translateY(50px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .product-details h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .product-details p {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .product-details a.btn {
+            font-size: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+            background-color: #02e6f6; 
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .product-details a.btn:hover {
+            background-color: #23f108; 
+        }
+        .header {
+            background-color: #008080;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            animation: slidein 1s;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        @keyframes slidein {
+            from { transform: translateY(-50px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+        .logo {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+        .icons a {
+            color: white;
+            margin-left: 20px;
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .icons a:first-child {
+            margin-left: 0;
+        }
+        .icons a:hover {
+            color: #02e6f6;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/buyer/<%= profile.id %>/dashboard" class="logo navbar-brand"> 
+            <i class="fas fa-shopping-basket"></i> Farmeto 
+        </a>
+        <h1 class="heading">Product Details</h1>
+        <div class="icons">
+            <a href="/buyer/<%= profile.id %>/dashboard/cart">
+                <i class="fas fa-shopping-cart"></i>
+            </a>
+            <a href="/buyer/<%= profile.id %>/dashboard/profile">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="/buyer/<%= profile.id %>/dashboard/logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </div>
+    </header>
+    
+    <section>
+        <div class="container">
+            <img src="<%= product.image %>" alt="Product Image" class="product-image">
+            <div class="product-details">
+                <h2><%= product.name %></h2>
+                <p><%= product.description %></p>
+                <p>Price:₹<%= product.price %>/kg</p>
+                <p>Category: <%= product.category %></p>
+                <p>Quantity: <%= product.quantity %> kg</p>
+                <p id="contactNumber">Contact Number: <%= product.contactNumber %></p>
+                <p>District: <%= product.district %></p>
+                <p>Pincode: <%= product.pincode %></p>
+                <p>Village: <%= product.village %></p>
+                <p>Street: <%= product.street %></p>
+                <p>House Number: <%= product.houseNo %></p>
+                <p>Location: <a href="<%= product.location %>"><%= product.location %></a></p>
+                <a href="/buyer/<%= profile.id %>/dashboard/save/<%= product.id %>" class="btn">Add to Cart</a>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Function to copy only the integer part of the contact number to clipboard
+        function copyContactNumber() {
+            // Get the contact number element
+            var contactNumber = document.getElementById('contactNumber');
+            // Extract only the digits from the text
+            var number = contactNumber.innerText.replace(/\D/g, '');
+            // Create a temporary input element
+            var tempInput = document.createElement('input');
+            // Set the value of the input to the extracted number
+            tempInput.value = number;
+            // Append the input to the body
+            document.body.appendChild(tempInput);
+            // Select the input
+            tempInput.select();
+            // Execute the copy command
+            document.execCommand('copy');
+            // Remove the temporary input
+            document.body.removeChild(tempInput);
+
+            // Show "Copied" message
+            var copiedMessage = document.createElement('div');
+            copiedMessage.textContent = 'Copied';
+            copiedMessage.classList.add('copied-message');
+            contactNumber.appendChild(copiedMessage);
+            // Remove the "Copied" message after 1 second
+            setTimeout(function() {
+                copiedMessage.style.opacity = 0;
+            }, 1000);
+            setTimeout(function() {
+                contactNumber.removeChild(copiedMessage);
+            }, 1500);
+        }
+
+        // Add click event listener to the contact number paragraph
+        var contactNumber = document.getElementById('contactNumber');
+        contactNumber.addEventListener('click', copyContactNumber);
+
+        // Change cursor style to pointer when mouse enters contact number
+        contactNumber.addEventListener('mouseenter', function() {
+            this.style.cursor = 'pointer';
+        });
+
+        // Change cursor style to default when mouse leaves contact number
+        contactNumber.addEventListener('mouseleave', function() {
+            this.style.cursor = 'default';
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>

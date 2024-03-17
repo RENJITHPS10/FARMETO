@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmeto</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="/stylesheets/buyer/dashboard.css"/>
+
+</head>
+<body>
+    
+<!-- header section starts  -->
+
+<header class="header">
+
+    <a href="/buyer/<%= profile.id %>/dashboard" class="logo"> <i class="fas fa-shopping-basket"></i> Farmeto </a>
+
+    
+
+    <div class="icons">
+        <div class="fas fa-bars" id="menu-btn"></div>
+        <a href="/buyer/<%= profile.id %>/dashboard/filter">
+            <div class="fas fa-search" id="search-btn"></div>
+          </a>
+          
+        <a href="/buyer/<%= profile.id %>/dashboard/cart" id="cart-link">
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+          </a>
+          
+        <a href="/buyer/<%= profile.id %>/dashboard/profile" id="login-btn">
+            <div class="fas fa-user"></div>
+        </a>
+        <a href="/buyer/<%= profile.id %>/dashboard/logout" id="logout-btn">
+            <div class="fas fa-sign-out-alt"></div>
+        </a>
+    </div>
+    
+
+    
+
+    <div class="shopping-cart">
+        
+    </div>
+   
+    
+
+    
+
+</header>
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>fresh and <span>organic</span> products for you</h3>
+        <p>Welcome to Farmeto - your go-to for top-quality agricultural products. Buy and sell with ease, supporting sustainable farming. Explore now!</p>
+        <a href="#products" class="btn">shop now</a>
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- features section starts  -->
+
+
+
+<!-- features section ends -->
+
+z
+<!-- products section starts  -->
+
+<section class="products" id="products">
+    <h1 class="heading"><span>products</span></h1>
+    <% if (products.length === 0) { %>
+        <div class="no-products">
+            <h1>No Products</h1>
+            <p>Check back later for updates or explore other categories!</p>
+        </div>
+    <% } else { %>
+        <div class="swiper product-slider">
+            <div class="swiper-wrapper">
+                <% for (let i = 0; i < Math.ceil(products.length / 3); i++) { %>
+                    <div class="swiper-slide">
+                        <% for (let j = i * 3; j < Math.min((i + 1) * 3, products.length); j++) { %>
+                            <% if (j !== (i * 3) + 2 || 
+                                (products[j].dataValues.id !== products[i * 3].dataValues.id && 
+                                products[j].dataValues.id !== products[i * 3 + 1].dataValues.id)) { %>
+                                    <div class="box">
+                                        <a href="/buyer/<%= profile.id %>/dashboard/product/<%= products[j].id %>">
+                                            <img src="<%= products[j].dataValues.image %>" alt="">
+                                        </a>
+                                        <h3><%= products[j].dataValues.name %></h3>
+                                        <p>Category: <%= products[j].dataValues.category %></p>
+                                        <p>Price:₹ <%= products[j].dataValues.price %>/kg</p>
+                                        <p>Quantity: <%= products[j].dataValues.quantity %> kg</p>
+                                        <p>Description: <%= products[j].dataValues.description %></p>
+                                        <a href="/buyer/<%= profile.id %>/dashboard/product/<%= products[j].id %>" class="btn">View Product</a>
+                                    </div>
+                                    
+                            <% } %>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div> <!-- Close swiper-wrapper -->
+        </div> <!-- Close product-slider -->
+    <% } %>
+</section>
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>  <i class="fas fa-shopping-basket"></i> Farmeto </h3>
+            <p>© 2024 Farmeto. All rights reserved</p>
+            <div class="share">
+                <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+                <a href="https://www.instagram.com/" class="fab fa-instagram"></a>
+                <a href="https://in.linkedin.com/" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="links"> <i class="fas fa-phone"></i> +123-456-7890 </a>
+            <a href="#" class="links"> <i class="fas fa-phone"></i> +111-222-3333 </a>
+            <a href="https://accounts.google.com/InteractiveLogin/signinchooser?continue=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&emr=1&followup=https%3A%2F%2Fmail.google.com%2Fmail%2Fu%2F0%2F&osid=1&passive=1209600&service=mail&ifkv=ATuJsjxoNbufT2CDy22psMAPWbNIALy7ope2l4DjLFH6xg-jQcddYTvQL9zt-UfekAyGei58dd1C&theme=glif&flowName=GlifWebSignIn&flowEntry=ServiceLogin" class="links"> <i class="fas fa-envelope"></i> Farmeto@gmail.com </a>
+            <a href="#" class="links"> <i class="fas fa-map-marker-alt"></i> Thrissur </a>
+        </div>
+
+        
+       
+
+    </div>
+
+    
+
+</section>
+
+<!-- footer section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="/javascripts/dashboard.js"></script>
+
+
+</body>
+</html>

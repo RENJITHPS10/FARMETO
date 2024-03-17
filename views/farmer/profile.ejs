@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 36px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: slideInDown 1s ease;
+        }
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-pic {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover {
+            transform: scale(1.05);
+        }
+        .name {
+            color: #333;
+            font-size: 24px;
+            margin-top: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeIn 1s ease;
+        }
+        .details {
+            padding: 0 20px;
+            animation: slideInLeft 1s ease;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .details p {
+            margin: 15px 0;
+            padding: 15px;
+            color: #555;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+        .details p strong {
+            color: #333;
+            font-weight: bold;
+        }
+        .details p:hover {
+            background-color: #e0e0e0;
+        }
+        .details p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Farmer Profile</h1>
+        <div class="profile">
+            <img class="profile-pic" src="/image/profile.jpg" alt="Profile Picture">
+            <div class="name"> <%=profile.name %></div>
+            <!-- Add edit button -->
+           
+
+        </div>
+        <div class="details">
+            <p><strong>Email:</strong>  <%=profile.email %></p>
+            <p><strong>Contact Number:</strong>  <%=profile.contactNumber %></p>
+            <p><strong>Pincode:</strong>  <%=profile.pincode %></p>
+            <p><strong>District:</strong>  <%=profile.district %></p>
+            <p><strong>Village:</strong>  <%=profile.village %></p>
+            <p><strong>Street:</strong>  <%=profile.street %></p>
+            <p><strong>House No:</strong>  <%=profile.houseNo %></p>
+            <p><strong>Location:</strong> <a href="<%=profile.location %>"><%=profile.location %></a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Card</title>
+  <!-- Link to Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .card {
+      background-color: #f8f9fa;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      max-width: 500px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: #343a40;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      margin-bottom: 15px;
+      color: #6c757d;
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .card .price {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 1.5rem;
+    }
+
+    .card .category {
+      color: #6c757d;
+      font-style: italic;
+    }
+
+    .card-buttons {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .card-buttons button {
+      padding: 12px 25px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0 10px;
+    }
+
+    .edit-btn {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .edit-btn:hover,
+    .delete-btn:hover {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+
+    .btn {
+      outline: none;
+    }
+
+    .btn:focus {
+      box-shadow: 0 0 0 2px #007bff;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .card-buttons button a {
+  text-decoration: none;
+  color: white;
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="<%= profile.image %>" alt="Product Image">
+    <h2 class="product-name"><%= profile.name %></h2>
+    <p class="description"><%= profile.description %></p>
+    <div class="price-quantity">
+      <p class="price">Price: <%= profile.price %></p>
+      <p class="quantity">Quantity: <%= profile.quantity %></p>
+    </div>
+    <p class="category">Category: <%= profile.category %></p>
+    
+    <div class="card-buttons">
+      <button class="btn edit-btn"> 
+        <a href="/farmer/<%= id1 %>/dashboard/add/<%= profile.id %>/update"><i class="fas fa-edit"></i> Edit</a></button>
+      <button class="btn delete-btn"><a href="/farmer/<%= id1 %>/dashboard/add/<%= profile.id %>/delete"><i class="fas fa-trash-alt"></i> Delete</a></button>
+    </div>
+  </div>
+  
+</body>
+</html>

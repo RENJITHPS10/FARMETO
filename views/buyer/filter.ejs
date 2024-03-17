@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Products</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Additional CSS for responsiveness and animations */
+        .card {
+            transition: transform 0.3s ease;
+            height: 100%;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .card img {
+            height: 300px; /* Fixed height for product images */
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            
+        }
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card-text {
+            margin-bottom: 15px;
+        }
+        .btn-view {
+            background-color: #008080;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 20px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-view:hover {
+            background-color: #0c00ec;
+        }
+        .btn-filter {
+        background-color: #32f800; /* Orange color */
+        color: #fff; /* White text */
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-filter:hover {
+        background-color: #558fdf; /* Darker orange on hover */
+    }
+
+    /* Animation */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .btn-filter:hover {
+        animation-name: pulse;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+    }
+    .no-products {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.no-products h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.no-products p {
+    font-size: 16px;
+    color: #666;
+}
+
+    </style>
+</head>
+<body>
+   
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008080;">
+            <div class="container">
+                <a href="/buyer/<%= profile.id %>/dashboard" class="navbar-brand">
+                    <i class="fas fa-shopping-basket"></i> Farmeto
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <form class="d-flex flex-lg-row flex-column ms-lg-auto align-items-center" action="/buyer/<%= id %>/dashboard/filter" method="GET">
+                        <div class="d-flex">
+                            <input type="text" id="name" name="name" placeholder="Enter Product Name" class="form-control me-2">
+                        </div>
+                        <div class="d-flex">
+                            <select id="district" name="district" class="form-select me-2">
+                                <option value="">All Districts</option>
+                                <option value="Alappuzha">Alappuzha</option>
+                                <option value="Ernakulam">Ernakulam</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Wayanad">Wayanad</option>
+                            </select>
+                        </div>
+                        <div class="d-flex">
+                            <select id="category" name="category" class="form-select me-2">
+                                <option value="">All Categories</option>
+                                <option value="Vegetables">Vegetables</option>
+                                <option value="Fruits">Fruits</option>
+                                <option value="Meat">Meat</option>
+                                <option value="Dairy">Dairy</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-filter" >Filter</button>
+
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    
+    <section>
+        <div class="container mt-4">
+            <% if(products.length === 0) { %>
+                <h1>No Products</h1>
+                <p>Check back later for updates or explore other categories!</p>
+            <% } else { %>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <% products.forEach((product, index) => { %>
+                <div class="col">
+                    <div class="card h-100 shadow">
+                        <img src="<%= product.image %>" alt="<%= product.name %>" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= product.name %></h5>
+                            <p class="card-text"><strong>Description:</strong> <%= product.description %></p>
+                            <p class="card-text"><strong>Price:₹</strong> <%= product.price %>/kg</p>
+                            <p class="card-text"><strong>Quantity:</strong> <%= product.quantity %> kg</p>
+                            <p class="card-text"><strong>Category:</strong> <%= product.category %></p>
+                            <a href="/buyer/<%= profile.id %>/dashboard/product/<%= product.id %>" class="btn btn-view">View Product</a>
+
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery (if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

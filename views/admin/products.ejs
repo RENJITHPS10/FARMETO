@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmeto</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/admin/dashboard.css"/> 
+</head>
+<body> 
+    
+    <!-- Header -->
+    <header> 
+        <div class="logosec"> 
+            <a href="#" class="logo"> <i class="fas fa-shopping-basket"></i> Farmeto </a>
+        </div> 
+        <div class="nav-option option1"> 
+            <h3>ADMIN DASHBOARD</h3> 
+        </div> 
+    </header> 
+
+    <!-- Main Container -->
+    <div class="main-container"> 
+        <div class="navcontainer"> 
+            <nav class="nav"> 
+                <div class="nav-upper-options"> 
+                    <a href="/admin/dashboard">
+                        <div class="option2 nav-option"> 
+                            <h3>Verification List</h3> 
+                        </div> 
+                    </a>
+                    <a href="/admin/dashboard/buyers">
+                        <div class="nav-option option3"> 
+                            <h3>Buyers List</h3> 
+                        </div> 
+                    </a>
+                    <a href="/admin/dashboard/farmers">
+                        <div class="nav-option option4"> 
+                            <h3>Farmers List</h3> 
+                        </div> 
+                    </a>
+                    <a href="/admin/dashboard/products">
+                        <div class="nav-option option5"> 
+                            <h3>Products</h3> 
+                        </div> 
+                    </a>
+                    <a href="/admin/dashboard/logout">
+                        <div class="nav-option logout"> 
+                            <h3>Logout</h3> 
+                        </div> 
+                    </a> 
+                </div> 
+            </nav> 
+        </div> 
+        <div class="main">
+            <!-- Report Container -->
+            <div class="report-container"> 
+                <div class="report-header"> 
+                    <h1 class="recent-Articles">Recent</h1> 
+                </div> 
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <% if (products.length === 0) { %>
+                                <tr>
+                                    <td colspan="8">No Products Found</td>
+                                </tr>
+                            <% } else { %>
+                                <tr>
+                                    <th>Si No</th>
+                                    <th>Product</th>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Actions</th>
+                                </tr>
+                            <% } %>
+                        </thead>
+                        <tbody>
+                            <% for(let i = 0; i < products.length; i++) { %>
+                                <tr>
+                                    <td><%= i + 1 %></td>
+                                    <td>
+                                        <div class="profile-pic-container">
+                                            <a href="<%= products[i].dataValues.image %>" target="_blank">
+                                                <img class="profile-pic" src="<%= products[i].dataValues.image %>" alt="Profile Picture">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td><%= products[i].dataValues.name %></td>
+                                    <td><%= products[i].dataValues.category %></td>
+                                    <td><%= products[i].dataValues.description %></td>
+                                    <td><%= products[i].dataValues.price %></td>
+                                    <td><%= products[i].dataValues.quantity %></td>
+                                    <td>
+                                        <div class="button-container">
+                                            <button class="reject-btn">
+                                                <a href="/admin/dashboard/products/delete/<%= products[i].dataValues.id %>">Delete</a>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                        
+                    </table>
+                </div> 
+            </div> 
+        </div>
+    </div>
+  
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

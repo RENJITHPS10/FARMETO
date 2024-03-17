@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Product</title>
+<style>
+  /* General Styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f3f3;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color:#008080;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .form-group {
+    margin-bottom: 30px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  textarea:focus {
+    border-color: #ff6347;
+    outline: none;
+  }
+  input[type="file"] {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+  }
+  input[type="file"]:focus {
+    border-color: #ff6347;
+  }
+  input[type="submit"] {
+    width: 100%;
+    background-color: #3cb371;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  input[type="submit"]:hover {
+    background-color: #2e8b57;
+  }
+
+  /* Animation */
+  .form-animation {
+    animation: slide-in 0.5s ease-out;
+  }
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Custom styles to enhance appearance */
+  .form-group {
+    position: relative;
+  }
+  .form-group label {
+    color: #fff;
+    font-size: 18px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group textarea {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+  }
+  .form-group input[type="text"]:focus,
+  .form-group input[type="number"]:focus,
+  .form-group textarea:focus {
+    background-color: #fff;
+    border-color: #ff6347;
+  }
+  input[type="file"] {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #333;
+  }
+  input[type="file"]:focus {
+    border-color: #ff6347;
+  }
+  input[type="submit"] {
+    background-color: #05f600;
+    border: 1px solid #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  input[type="submit"]:hover {
+    background-color: #0202f2;
+    border-color: #3cb371;
+    color: #fff;
+  }
+  .form-group select {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    appearance: none; /* Remove default appearance */
+    background-image: url('data:image/svg+xml;utf8,<svg fill="#333" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.406 8.594a.5.5 0 0 0-.094.688l3.75 4.5a.5.5 0 0 0 .782 0l3.75-4.5a.5.5 0 0 0-.094-.688L12 15.188 7.406 8.594z"/></svg>'); /* Add custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    cursor: pointer;
+  }
+
+  /* Hover and focus styles for select */
+  .form-group select:hover,
+  .form-group select:focus {
+    border-color: #ff6347;
+  }
+</style>
+</head>
+<body>
+    <div class="container form-animation">
+      <h1>Update Product</h1>
+      <form action="/farmer/<%= id1 %>/dashboard/add/<%= product.id %>/update" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="productName">Product Name:</label>
+          <input type="text" id="productName" name="name" required value="<%= product.name %>">
+        </div>
+        <div class="form-group">
+          <label for="productDesc">Product Description:</label>
+          <textarea id="productDesc" name="description" rows="4" required><%= product.description %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="productCategory">Category:</label>
+          <select name="category" class="form-style">
+            <option value="vegetables" <% if (product.category === 'vegetables') { %>selected<% } %>>Vegetables</option>
+            <option value="fruits" <% if (product.category === 'fruits') { %>selected<% } %>>Fruits</option>
+            <option value="dairy" <% if (product.category === 'dairy') { %>selected<% } %>>Dairy</option>
+            <option value="meat" <% if (product.category === 'meat') { %>selected<% } %>>Meat</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price:</label>
+          <input type="number" id="productPrice" name="price" required value="<%= product.price %>">
+        </div>
+        <div class="form-group">
+          <label for="productQuantity">Quantity:</label>
+          <input type="number" id="productQuantity" name="quantity"  required value="<%= product.quantity %>">
+        </div>
+        <div class="form-group">
+            <label for="productImage">Product Image:</label>
+            <img id="productImagePreview" src="<%= product.image %>" style="max-width: 200px; max-height: 200px;">
+            <input type="file" id="productImage" name="image" accept="image/*" onchange="previewImage(event)">
+          </div>
+          
+        <input type="submit" value="Update Product">
+      </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+          const input = event.target;
+          if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imagePreview = document.getElementById('productImagePreview');
+              imagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+      
+  </body>
+  
+  
+</html>
