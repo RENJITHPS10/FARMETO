@@ -23,11 +23,11 @@ const loginModel = sequelizeConfig.define("farmerlogin", {
     allowNull: false,
   },
   contactNumber: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   pincode: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.NUMBER,
     allowNull: false,
   },
   district: {

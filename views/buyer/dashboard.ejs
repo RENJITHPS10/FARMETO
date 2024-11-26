@@ -99,7 +99,7 @@ z
                                 products[j].dataValues.id !== products[i * 3 + 1].dataValues.id)) { %>
                                     <div class="box">
                                         <a href="/buyer/<%= profile.id %>/dashboard/product/<%= products[j].id %>">
-                                            <img src="<%= products[j].dataValues.image %>" alt="">
+                                            <img src="<%= products[j].dataValues.image %>" alt="" width="100%">
                                         </a>
                                         <h3><%= products[j].dataValues.name %></h3>
                                         <p>Category: <%= products[j].dataValues.category %></p>
